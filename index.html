@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Identidad Virtual</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0a0e14;--ink:#e8eef5;--muted:#6b8299;--ok:#5dff9b;--line:#1e2a3a}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{min-height:100vh;background:radial-gradient(900px 500px at 50% -10%,#14202e,transparent 60%),var(--bg);
+    color:var(--ink);font-family:"Space Grotesk",system-ui,sans-serif;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;text-align:center}
+  h1{font-size:clamp(20px,5vw,30px);font-weight:700;letter-spacing:-.02em}
+  .dot{width:9px;height:9px;border-radius:50%;background:var(--ok);display:inline-block;
+    box-shadow:0 0 14px var(--ok);animation:p 1.6s ease-in-out infinite;margin-right:8px}
+  @keyframes p{0%,100%{opacity:1}50%{opacity:.35}}
+  .frame{width:min(92vw,520px);aspect-ratio:4/3;border:1px solid var(--line);border-radius:16px;
+    overflow:hidden;background:#000;box-shadow:0 30px 80px -30px rgba(0,0,0,.9);position:relative}
+  img{width:100%;height:100%;object-fit:contain;display:block}
+  .meta{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--muted);line-height:1.7}
+  .live{color:var(--ok)}
+</style>
+</head>
+<body>
+  <h1><span class="dot"></span>Identidad Virtual</h1>
+  <div class="frame"><img id="shot" alt="última identidad creada"></div>
+  <div class="meta">
+    <span class="live">● en vivo</span> · se actualiza sola<br>
+    <span id="stamp">cargando…</span>
+  </div>
+<script>
+  // siempre el mismo archivo; el parametro ?t= evita que el celular muestre una version cacheada
+  const FILE = "ultima.png";
+  const img = document.getElementById("shot");
+  const stamp = document.getElementById("stamp");
+  function refresh(){
+    const t = Date.now();
+    img.src = FILE + "?t=" + t;
+    stamp.textContent = "actualizado " + new Date().toLocaleTimeString("es-AR");
+  }
+  refresh();
+  setInterval(refresh, 5000);   // revisa cada 5 segundos
+</script>
+</body>
+</html>
